@@ -1,0 +1,53 @@
+/* popup.css */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    gap: 8px;
+    padding: 16px;
+}
+
+#main-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#main-menu button {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+#main-menu button:hover {
+    background-color: cornflowerblue;
+}
+
+.hidden {
+    display: none;
+}
+
+#competitors-container .item {
+    margin: 10px 0;
+}
+
+button {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: cornflowerblue;
+}

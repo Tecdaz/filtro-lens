@@ -1,0 +1,58 @@
+{
+    "manifest_version": 3,
+    "name": "Filtro Google Lens",
+    "version": "1.0.0",
+    "description": "Filtrado de competidores dentro de los resultados de Google Lens",
+    "icons": {
+        "48": "images/icon-32.png",
+        "128": "images/icon-128.png"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://lens.google.com/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["https://lens.google.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+  }
+  
+
+/*
+
+{
+  "manifest_version": 3,
+  "name": "Filtro Google Lens",
+  "version": "1.0.0",
+  "description": "Filtrado de competidores dentro de los resultados de Google Lens",
+  "icons": {
+      "48": "images/icon-32.png",
+      "128": "images/icon-128.png"
+  },
+  "action": {
+      "default_popup": "popup.html"
+  },
+  "permissions": [
+      "activeTab",
+      "storage"
+  ],
+  "host_permissions": [
+      "<all_urls>"
+  ],
+  "content_scripts": [
+      {
+          "matches": ["<all_urls>"],
+          "js": ["content.js"]
+      }
+  ]
+}
+
+*/

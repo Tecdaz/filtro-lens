@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Competidores</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="competitors">
+            <button class="competitor-btn" data-competitor="MCO">MCO</button>
+            <button class="competitor-btn" data-competitor="MLA">MLA</button>
+            <button class="competitor-btn" data-competitor="MLB">MLB</button>
+            <button class="competitor-btn" data-competitor="MLC">MLC</button>
+            <button class="competitor-btn" data-competitor="MLM">MLM</button>
+        </div>
+        <div id="competitor-content" class="hidden">
+            <!-- aca se inyecta contenido desde el archivo .js -->
+        </div>
+        <button id="botonGuardar">Guardar</button>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
