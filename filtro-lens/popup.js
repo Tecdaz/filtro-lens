@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     backButton.textContent = 'Volver atrás';
     backButton.classList.add('competitor-btn');
     backButton.addEventListener('click', () => {
+        messageBox.style.display = 'none';
         competitorContent.classList.add('hidden');
         document.querySelector('.competitors').classList.remove('hidden');
         backButton.remove();
@@ -148,22 +149,34 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.tabs.query({}, function(tabs) {
             tabs.forEach((tab) => {
                 chrome.tabs.sendMessage(tab.id, { configuracion: config }, function(response) {
-                    console.log('Respuesta del content script:', response);
+                    console.log(response);
+                    if(response){
+                        // Mostrar mensaje de confirmación
+                        messageBox.classList.add('success');
+                        messageBox.textContent = 'Configuración guardada exitosamente';
+                        messageBox.style.display = 'block';
+                        messageBox.style.color = 'green';
+                        setTimeout(() => {
+                            messageBox.classList.remove('success');
+                            messageBox.style.display = 'none';
+                            // Volver a la pantalla anterior
+                            competitorContent.classList.add('hidden');
+                            document.querySelector('.competitors').classList.remove('hidden');
+                            backButton.remove();
+                            saveButton.classList.add('hidden');
+                        }, 2000);
+                    }else{
+                        // Mostrar mensaje de confirmación
+                        if(!messageBox.classList.contains('success')){    
+                            messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
+                            messageBox.style.display = 'block';
+                            messageBox.style.color = 'red';
+                        }
+                        
+                    }
                 });
             });
         });
-    
-        // Mostrar mensaje de confirmación
-        messageBox.textContent = 'Configuración guardada exitosamente';
-        messageBox.style.display = 'block';
-        setTimeout(() => {
-            messageBox.style.display = 'none';
-            // Volver a la pantalla anterior
-            competitorContent.classList.add('hidden');
-            document.querySelector('.competitors').classList.remove('hidden');
-            backButton.remove();
-            saveButton.classList.add('hidden');
-        }, 500);
     }
     
     

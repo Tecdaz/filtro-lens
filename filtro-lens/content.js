@@ -4,8 +4,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.configuracion) {
         console.log('Opción seleccionada en el popup:', request.configuracion);
         localStorage.setItem('configPreferences', JSON.stringify(request.configuracion));
-        barrido();
         sendResponse({ status: 'Opción recibida y manejada' });
+        barrido();
+        
     }
 });
 
