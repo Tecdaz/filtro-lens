@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         ],
         MLM: [
+            { name: 'ALM', id: 'aliexpress.com' },
             { name: 'AMX', id: 'amazon.com.mx' },
             { name: 'COP', id: 'coppel.com' },
             { name: 'WAL', id: 'walmart.com.mx' },
