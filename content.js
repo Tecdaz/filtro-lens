@@ -26,26 +26,27 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 function barrido(){
     console.log(config);
     if (config) {
-        let links = document.querySelectorAll('a');
-        let aceptados = [];
-        config = JSON.parse(config);
-        for (let key in config) {
-            if (config[key]) {
-                aceptados.push(key);
+        if(config.estaActivo){
+            let links = document.querySelectorAll('a');
+            let aceptados = [];
+            for (let key in config.sites) {
+                if (config[key]) {
+                    aceptados.push(key);
+                }
             }
-        }
-        // console.log(aceptados)
-        links.forEach((link) => {
-            let valido = false;
-            aceptados.forEach((aceptado) => {
-                if (link.href.includes(aceptado)) {
-                    valido = true;
+            // console.log(aceptados)
+            links.forEach((link) => {
+                let valido = false;
+                aceptados.forEach((aceptado) => {
+                    if (link.href.includes(aceptado)) {
+                        valido = true;
+                    }
+                });
+                if (!valido) {
+                    // console.log('Ocultando link:', link);
+                    link.parentNode.removeChild(link);
                 }
             });
-            if (!valido) {
-                // console.log('Ocultando link:', link);
-                link.parentNode.removeChild(link);
-            }
-        });
+        }
     }
 }
