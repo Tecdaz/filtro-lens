@@ -1,19 +1,29 @@
+var config = {}
 
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.configuracion) {
-        console.log('Opción seleccionada en el popup:', request.configuracion);
-        localStorage.setItem('configPreferences', JSON.stringify(request.configuracion));
-        sendResponse({ status: 'Opción recibida y manejada' });
+// Obtiene la configuración de la extensión al cargar la pagina
+chrome.storage.sync.get(['configPreferences'])
+    .then((result) => {
+        Object.assign(config, result.configPreferences);
         barrido();
-        
+    })
+    .catch(()=>{
+        console.log('Error al obtener la configuración');
+    })
+
+// Obtiene la configuración de la extensión al ser cambiada
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for(let key in changes) {
+        if (key === 'configPreferences') {
+            let storageChange = changes[key];
+            Object.assign(config, storageChange.newValue);
+            barrido();
+        }
     }
 });
 
 
 
 function barrido(){
-    let config = localStorage.getItem('configPreferences');
     console.log(config);
     if (config) {
         let links = document.querySelectorAll('a');
@@ -24,7 +34,7 @@ function barrido(){
                 aceptados.push(key);
             }
         }
-        console.log(aceptados)
+        // console.log(aceptados)
         links.forEach((link) => {
             let valido = false;
             aceptados.forEach((aceptado) => {
@@ -33,11 +43,9 @@ function barrido(){
                 }
             });
             if (!valido) {
-                console.log('Ocultando link:', link);
+                // console.log('Ocultando link:', link);
                 link.parentNode.removeChild(link);
             }
         });
     }
 }
-
-setInterval(barrido, 1000);

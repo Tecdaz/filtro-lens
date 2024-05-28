@@ -1,3 +1,5 @@
+var config = {};
+
 document.addEventListener('DOMContentLoaded', function () {
     const competitorButtons = document.querySelectorAll('.competitor-btn');
     const competitorContent = document.getElementById('competitor-content');
@@ -130,8 +132,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let checkboxes;
 
     // Cargar configuraciones guardadas al iniciar
-    let config = localStorage.getItem('configPreferences');
-    config = config ? JSON.parse(config) : {};
+    chrome.storage.sync.get(['configPreferences'])
+    .then((result) => {
+        Object.assign(config, result.configPreferences);
+    })
 
     function guardarConfiguracion() {
         // Asegurarse de recoger todos los checkboxes actuales en el contenido del competidor
@@ -144,38 +148,27 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectAllCheckbox) {
             config[selectAllCheckbox.id] = selectAllCheckbox.checked;
         }
-        
-        localStorage.setItem('configPreferences', JSON.stringify(config));
-        chrome.tabs.query({}, function(tabs) {
-            tabs.forEach((tab) => {
-                chrome.tabs.sendMessage(tab.id, { configuracion: config }, function(response) {
-                    console.log(response);
-                    if(response){
-                        // Mostrar mensaje de confirmación
-                        messageBox.classList.add('success');
-                        messageBox.textContent = 'Configuración guardada exitosamente';
-                        messageBox.style.display = 'block';
-                        messageBox.style.color = 'green';
-                        setTimeout(() => {
-                            messageBox.classList.remove('success');
-                            messageBox.style.display = 'none';
-                            // Volver a la pantalla anterior
-                            competitorContent.classList.add('hidden');
-                            document.querySelector('.competitors').classList.remove('hidden');
-                            backButton.remove();
-                            saveButton.classList.add('hidden');
-                        }, 2000);
-                    }else{
-                        // Mostrar mensaje de confirmación
-                        if(!messageBox.classList.contains('success')){    
-                            messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
-                            messageBox.style.display = 'block';
-                            messageBox.style.color = 'red';
-                        }
-                        
-                    }
-                });
-            });
+
+        chrome.storage.sync.set({ configPreferences: config })
+        .then(() => {
+            messageBox.classList.add('success');
+            messageBox.textContent = 'Configuración guardada exitosamente';
+            messageBox.style.display = 'block';
+            messageBox.style.color = 'green';
+            setTimeout(() => {
+                messageBox.classList.remove('success');
+                messageBox.style.display = 'none';
+                // Volver a la pantalla anterior
+                competitorContent.classList.add('hidden');
+                document.querySelector('.competitors').classList.remove('hidden');
+                backButton.remove();
+                saveButton.classList.add('hidden');
+            }, 2000);
+        })
+        .catch(() => {
+            messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
+            messageBox.style.display = 'block';
+            messageBox.style.color = 'red';
         });
     }
     
