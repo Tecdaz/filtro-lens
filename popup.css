@@ -9,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: fit-content;
+    gap: 8px;
     padding: 16px;
     width: 150px;
     background-color: #f9f9f9;
@@ -24,6 +25,21 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+
+.contenedor-estado {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#estado-activo{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.activo{
+    color: green;
 }
 
 .competitors {

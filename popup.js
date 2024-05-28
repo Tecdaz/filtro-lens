@@ -1,11 +1,47 @@
 var config = {};
-
+// Cargar configuraciones guardadas al iniciar
+chrome.storage.sync.get(['configPreferences'])
+    .then((result) => {
+        Object.assign(config, result.configPreferences);
+    })
 document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.container');
+    // Configuración del boton de estado
+    const botonEstado = document.getElementById('estado-activo');
+    console.log(config);
+    if(config.estaActivo){
+        botonEstado.classList.add('activo');
+        botonEstado.textContent = 'Activa';
+    }else{
+        botonEstado.classList.remove('activo');
+        botonEstado.style.color = 'red';
+        botonEstado.textContent = 'Desactivada';
+        container.classList.add('hidden');
+    }
+    botonEstado.addEventListener('click', () => {
+        botonEstado.classList.toggle('activo');
+        if(botonEstado.classList.contains('activo')){ // Se encontraba desactivado
+            config['estaActivo'] = true;
+            botonEstado.style.color = 'green';
+            botonEstado.textContent = 'Activa';
+            if(container.classList.contains('hidden')){
+                container.classList.remove('hidden');
+            }
+        }else{                                        //Se encontraba activado
+            config['estaActivo'] = false;
+            botonEstado.style.color = 'red';
+            botonEstado.textContent = 'Desactivada';
+            container.classList.add('hidden');
+        }
+        console.log(config);
+        chrome.storage.sync.set({ configPreferences: config });
+    });
+
+
     const competitorButtons = document.querySelectorAll('.competitor-btn');
     const competitorContent = document.getElementById('competitor-content');
     const backButton = document.createElement('button');
     const saveButton = document.getElementById('botonGuardar');
-    const container = document.querySelector('.container');
     const messageBox = document.createElement('div');
 
     // Inicialización del mensaje de confirmación
@@ -131,23 +167,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let checkboxes;
 
-    // Cargar configuraciones guardadas al iniciar
-    chrome.storage.sync.get(['configPreferences'])
-    .then((result) => {
-        Object.assign(config, result.configPreferences);
-    })
+   
+    
 
     function guardarConfiguracion() {
         // Asegurarse de recoger todos los checkboxes actuales en el contenido del competidor
         checkboxes = document.querySelectorAll('.competitor-checkbox');
+        let sites = {};
         checkboxes.forEach(checkbox => {
-            config[checkbox.id] = checkbox.checked;
+            sites[checkbox.id] = checkbox.checked;
         });
         // No olvides incluir el checkbox de 'Seleccionar Todos' si es necesario
         const selectAllCheckbox = document.querySelector('.select-all-checkbox');
         if (selectAllCheckbox) {
-            config[selectAllCheckbox.id] = selectAllCheckbox.checked;
+            sites[selectAllCheckbox.id] = selectAllCheckbox.checked;
         }
+
+        config.sites = sites;
 
         chrome.storage.sync.set({ configPreferences: config })
         .then(() => {
@@ -166,9 +202,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 2000);
         })
         .catch(() => {
-            messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
-            messageBox.style.display = 'block';
-            messageBox.style.color = 'red';
+            if(!messageBox.classList.contains('success') && !competitorContent.classList.contains('hidden')){
+                messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
+                messageBox.style.display = 'block';
+                messageBox.style.color = 'red';
+            }
         });
     }
     
