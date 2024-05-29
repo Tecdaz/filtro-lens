@@ -9,8 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: fit-content;
-    gap: 8px;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
     width: 150px;
     background-color: #f9f9f9;
 }
@@ -31,6 +30,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 16px;
 }
 
 #estado-activo{
