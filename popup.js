@@ -4,11 +4,16 @@ chrome.storage.sync.get(['configPreferences'])
     .then((result) => {
         Object.assign(config, result.configPreferences);
     })
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.container');
+
     // Configuración del boton de estado
     const botonEstado = document.getElementById('estado-activo');
     console.log(config);
+
+    // Estado al ser renderizado el popup
     if(config.estaActivo){
         botonEstado.classList.add('activo');
         botonEstado.textContent = 'Activa';
@@ -18,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
         botonEstado.textContent = 'Desactivada';
         container.classList.add('hidden');
     }
+
+    // Estado al ser clickeado
     botonEstado.addEventListener('click', () => {
         botonEstado.classList.toggle('activo');
         if(botonEstado.classList.contains('activo')){ // Se encontraba desactivado
@@ -167,13 +174,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let checkboxes;
 
-   
-    
-
     function guardarConfiguracion() {
         // Asegurarse de recoger todos los checkboxes actuales en el contenido del competidor
         checkboxes = document.querySelectorAll('.competitor-checkbox');
-        let sites = {};
+        // obtiene los sitios guardados en la configuración
+        let sites = config.sites || {};
         checkboxes.forEach(checkbox => {
             sites[checkbox.id] = checkbox.checked;
         });
@@ -191,14 +196,17 @@ document.addEventListener('DOMContentLoaded', function () {
             messageBox.textContent = 'Configuración guardada exitosamente';
             messageBox.style.display = 'block';
             messageBox.style.color = 'green';
+
+            // Remueve los botones para evitar comportamientos inesperados
+            backButton.remove();
+            saveButton.classList.add('hidden');
+
             setTimeout(() => {
                 messageBox.classList.remove('success');
                 messageBox.style.display = 'none';
                 // Volver a la pantalla anterior
                 competitorContent.classList.add('hidden');
                 document.querySelector('.competitors').classList.remove('hidden');
-                backButton.remove();
-                saveButton.classList.add('hidden');
             }, 2000);
         })
         .catch(() => {
@@ -210,8 +218,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    
-
     
     function updateCompetitorContent(country) {
         const competitors = competitorsByCountry[country] || [];
@@ -247,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Restaurar estados guardados para cada checkbox
         competitorCheckboxes.forEach(checkbox => {
-            checkbox.checked = config[checkbox.id] || false;
+            checkbox.checked = config.sites[checkbox.id] || false;
         });
         // Ajustar el estado del checkbox 'Seleccionar Todos' basado en los estados individuales al cargar
         selectAllCheckbox.checked = Array.from(competitorCheckboxes).every(checkbox => checkbox.checked);
