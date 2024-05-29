@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const botonEstado = document.getElementById('estado-activo');
     console.log(config);
 
+    // Evita errores visuales cuando carga el html antes del JS
+    if(config.estaActivo === undefined){
+        this.location.reload();
+    }
+
     // Estado al ser renderizado el popup
     if(config.estaActivo){
         botonEstado.classList.add('activo');
