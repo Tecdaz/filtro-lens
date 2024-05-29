@@ -3,7 +3,11 @@ var config = {}
 // Obtiene la configuración de la extensión al cargar la pagina
 chrome.storage.sync.get(['configPreferences'])
     .then((result) => {
-        Object.assign(config, result.configPreferences);
+        if(!result.configPreferences){
+            Object.assign(config, {estaActivo: false, sites: {}});
+        }else{
+            Object.assign(config, result.configPreferences);
+        }
         barrido();
     })
     .catch(()=>{
@@ -30,7 +34,7 @@ function barrido(){
             let links = document.querySelectorAll('a');
             let aceptados = [];
             for (let key in config.sites) {
-                if (config[key]) {
+                if (config.sites[key]) {
                     aceptados.push(key);
                 }
             }
@@ -50,3 +54,5 @@ function barrido(){
         }
     }
 }
+
+setInterval(barrido, 1000);

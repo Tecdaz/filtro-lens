@@ -2,7 +2,13 @@ var config = {};
 // Cargar configuraciones guardadas al iniciar
 chrome.storage.sync.get(['configPreferences'])
     .then((result) => {
-        Object.assign(config, result.configPreferences);
+        // Si no hay configuraciones guardadas, se crea una nueva
+        if (!result.configPreferences) {
+            Object.assign(config, { estaActivo: true, sites: {} });
+            chrome.storage.sync.set({ configPreferences: config });
+        }else{
+            Object.assign(config, result.configPreferences);
+        }
     })
 
 
