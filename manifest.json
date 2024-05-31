@@ -12,15 +12,28 @@
     },
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "webRequest",
+        "declarativeNetRequest"
     ],
     "host_permissions": [
         "https://lens.google.com/*"
     ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "content_scripts": [
         {
             "matches": ["https://lens.google.com/*"],
             "js": ["content.js"]
+        },
+        {
+            "matches": ["https://*.aliexpress.com/*"],
+            "js": ["aliexpress.js"]
+        },
+        {
+            "matches": ["https://m.shein.com.mx/*"],
+            "js": ["sheinmx.js"]
         }
     ]
   }
