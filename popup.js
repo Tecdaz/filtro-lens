@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { name: 'LMN', id: 'leroymerlin.com.br' },
             { name: 'MDR', id: 'madeiramadeira.com.br' },
             { name: 'MGL', id: 'magazineluiza.com.br' },
+            { name: 'MLB', id: 'mercadolibre.com.br' },
             { name: 'NET', id: 'netshoes.com.br' },
             { name: 'PAO', id: 'paodeacucar.com' },
             { name: 'RNN', id: 'lojasrenner.com.br' },
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { name: 'FBC', id: 'falabella.com/falabella-cl' },
             { name: 'LIS', id: 'lider.cl/supermercado' },
             { name: 'LNC', id: 'linio.cl' },
+            { name: 'MLC', id: 'mercadolibre.cl' },
             { name: 'PRS', id: 'paris.cl' },
             { name: 'RIP', id: 'simple.ripley.cl' },
             { name: 'SPC', id: 'shopee.cl' },
@@ -123,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { name: 'ALK', id: 'alkosto.com' },
             { name: 'EXI', id: 'exito.com' },
             { name: 'FBO', id: 'falabella.com.co/falabella-co' },
+            { name: 'MCO', id: 'mercadolibre.com.co' },
             { name: 'MER', id: 'merqueo.com' },
             { name: 'OLI', id: 'olimpica.com' },
             { name: 'SPO', id: 'shopee.com.co' },
@@ -144,12 +147,14 @@ document.addEventListener('DOMContentLoaded', function () {
             { name: 'SMM', id: 'samsung.com/mx' },
             { name: 'INN', id: 'innovasport.com' },
             { name: 'HDP', id: 'homedepot.com.mx' },
+            { name: 'MLM', id: 'mercadolibre.com.mx' },
             { name: 'PDH', id: 'elpalaciodehierro.com' },
             { name: 'ALL', id: 'selectAll'}
 
         ],
         MPE: [
             { name: 'FBP', id: 'falabella.com.pe/falabella-pe' },
+            { name: 'MPE', id: 'mercadolibre.com.pe' },
             { name: 'ALL', id: 'selectAll'}
 
         ]
