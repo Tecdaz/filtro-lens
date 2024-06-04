@@ -1,8 +1,8 @@
 let newLocation = location.href;
 let refresh = false;
-if(location.href.includes('/item/')){
+if(location.href.includes('/i/')){
     console.log('Aliexpress item page detected');
-    newLocation = newLocation.replace('/item/', '/i/');
+    newLocation = newLocation.replace('/i/', '/item/');
     refresh = true;
 }
 

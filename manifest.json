@@ -28,10 +28,6 @@
             "js": ["content.js"]
         },
         {
-            "matches": ["https://*.aliexpress.com/*"],
-            "js": ["aliexpress.js"]
-        },
-        {
             "matches": ["https://m.shein.com.mx/*"],
             "js": ["sheinmx.js"]
         }
