@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Volver a la pantalla anterior
                 competitorContent.classList.add('hidden');
                 document.querySelector('.competitors').classList.remove('hidden');
-            }, 2000);
+            }, 1000);
         })
         .catch(() => {
             if(!messageBox.classList.contains('success') && !competitorContent.classList.contains('hidden')){
