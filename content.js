@@ -1,6 +1,13 @@
 var config = {}
 chrome.storage.sync.set({batchexec: false});
 
+document.addEventListener('DOMContentLoaded', () =>{
+    const interval = setInterval(barrido2, 1000);
+    setTimeout(() => {
+        clearInterval(interval);
+    }, 5000);
+});
+
 // Obtiene la configuración de la extensión al cargar la pagina
 chrome.storage.sync.get(['configPreferences'])
     .then((result) => {
