@@ -8,7 +8,7 @@
         "128": "images/icon-128.png"
     },
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup/popup.html"
     },
     "permissions": [
         "activeTab",
@@ -29,7 +29,7 @@
         },
         {
             "matches": ["https://m.shein.com.mx/*"],
-            "js": ["sheinmx.js"]
+            "js": ["scripts/sheinmx.js"]
         }
     ]
   }

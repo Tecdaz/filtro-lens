@@ -1,10 +1,5 @@
 let newLocation = location.href;
 let refresh = false;
-if(location.href.includes('/i/')){
-    console.log('Aliexpress item page detected');
-    newLocation = newLocation.replace('/i/', '/item/');
-    refresh = true;
-}
 
 let regex = /https:\/\/(.+)\.aliexpress/
 let match = regex.exec(location.href);
