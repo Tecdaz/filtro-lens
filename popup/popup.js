@@ -125,6 +125,7 @@ function renderizarActivos(){
         if(pais){
             let cantActivos = competidoresActivos(pais);
             competidor.textContent = `${pais} (${cantActivos})`;
+            competidor.classList.toggle('btn-borde', cantActivos > 0);
         }
     });
 }
@@ -146,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Configuración del boton de estado
     const botonEstado = document.getElementById('estado-activo');
-    console.log(config);
 
     // Evita errores visuales cuando carga el html antes del JS
     if(config.estaActivo === undefined){
@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
             botonEstado.textContent = 'Desactivada';
             container.classList.add('hidden');
         }
-        console.log(config);
         chrome.storage.sync.set({ configPreferences: config });
     });
 
@@ -237,6 +236,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 messageBox.textContent = 'Error al guardar la configuracion, prueba nuevamente';
                 messageBox.style.display = 'block';
                 messageBox.style.color = 'red';
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 3000);
             }
         });
     }
@@ -253,10 +255,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return `
                     <button class="competitor-btn button-config" id="${comp.id}">${comp.name}</button>     
                 `;
-                // <div class="item">
-                //         <p class="botonCompetidor">${comp.name}</p>
-                //         <input type="checkbox" name="${comp.name}" id="${comp.id}" class="competitor-checkbox">
-                //     </div>
             }
         }).join('');
 
@@ -264,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectAllCheckbox = document.querySelector('.select-all-checkbox');
         const competitorCheckboxes = document.querySelectorAll('.button-config');
 
+        // Funcion para gurdar la configuración al hacer click en un boton
         competitorCheckboxes.forEach(button => {
             button.addEventListener('click', () => {
                     button.classList.toggle('active');
@@ -275,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+        // Funcion para guardar la configuración al hacer click en el boton de seleccionar todos
         if (selectAllCheckbox) {
             selectAllCheckbox.addEventListener('click', () => {
                 selectAllCheckbox.classList.toggle('active');
@@ -290,9 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
         competitorCheckboxes.forEach(checkbox => {
             checkbox.classList.toggle('active', config.sites[checkbox.id] || false);
         });
+
         // Ajustar el estado del checkbox 'Seleccionar Todos' basado en los estados individuales al cargar
         selectAllCheckbox.classList.toggle("active", Array.from(competitorCheckboxes).every(checkbox => checkbox.classList.contains('active')));
     }
-
-    
 });
