@@ -1,4 +1,4 @@
-var config = {};
+var config = {sites: {}};
 
 const competitorsByCountry = {
     MLA: [
@@ -89,7 +89,6 @@ const competitorsByCountry = {
         { name: 'FBP', id: 'falabella.com.pe/falabella-pe' },
         { name: 'MPE', id: 'mercadolibre.com.pe' },
         { name: 'ALL', id: 'selectAll'}
-
     ]
 };
 
@@ -103,13 +102,15 @@ chrome.storage.sync.get(['configPreferences'])
         }else{
             Object.assign(config, result.configPreferences);
         }
+        renderizarActivos();
     })
 
-function competidoresActivos(pais, competitors){
-    let competidores = competitors[pais];
+function competidoresActivos(pais){
+    const competidores = competitorsByCountry[pais];
     let cantActivos = 0;
     competidores.forEach(function(competidor){
-        if(competidor.id !== 'selectAll' && config.sites[competidor.id]){
+        const site = competidor.id;
+        if(site !== 'selectAll' && config.sites[site]){
             cantActivos++;
         }
     });
@@ -117,20 +118,31 @@ function competidoresActivos(pais, competitors){
     return cantActivos;
 }
 
-function renderizarActivos(competitorsByCountry){
-    let competidores = document.querySelectorAll('.competitor-btn');
-    competidores.forEach(function(competidor){
+function renderizarActivos(){
+    let competidoresPais = document.querySelectorAll('.competitor-btn');
+    competidoresPais.forEach(function(competidor){
         let pais = competidor.getAttribute('data-competitor');
-        let cantActivos = competidoresActivos(pais, competitorsByCountry);
-        competidor.textContent = `${pais} (${cantActivos})`;
+        if(pais){
+            let cantActivos = competidoresActivos(pais);
+            competidor.textContent = `${pais} (${cantActivos})`;
+        }
     });
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.container');
 
     // Renderiza la cantidad de competidores activos
-    renderizarActivos(competitorsByCountry);
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+        for(let key in changes) {
+            if (key === 'configPreferences') {
+                renderizarActivos();
+            }
+        }
+    });
+    renderizarActivos();
 
     // Configuración del boton de estado
     const botonEstado = document.getElementById('estado-activo');
@@ -162,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if(container.classList.contains('hidden')){
                 container.classList.remove('hidden');
             }
-            renderizarActivos(competitorsByCountry);
         }else{                                        //Se encontraba activado
             config['estaActivo'] = false;
             botonEstado.style.color = 'red';
@@ -177,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const competitorButtons = document.querySelectorAll('.competitor-btn');
     const competitorContent = document.getElementById('competitor-content');
     const backButton = document.createElement('button');
-    const saveButton = document.getElementById('botonGuardar');
     const messageBox = document.createElement('div');
 
     // Inicialización del mensaje de confirmación
@@ -193,8 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
         competitorContent.classList.add('hidden');
         document.querySelector('.competitors').classList.remove('hidden');
         backButton.remove();
-        saveButton.classList.add('hidden');
-        renderizarActivos(competitorsByCountry);
     });
 
     competitorButtons.forEach(button => {
@@ -204,53 +212,25 @@ document.addEventListener('DOMContentLoaded', function () {
             competitorContent.classList.remove('hidden');
             document.querySelector('.competitors').classList.add('hidden');
             container.insertBefore(backButton, container.lastElementChild);
-            saveButton.classList.remove('hidden');
         });
     });
-
-    // Esconde el botón de guardar inicialmente
-    saveButton.classList.add('hidden');
-
-    // Funcionalidad de guardar configuración
-    document.getElementById('botonGuardar').addEventListener('click', guardarConfiguracion);
 
     let checkboxes;
 
     function guardarConfiguracion() {
         // Asegurarse de recoger todos los checkboxes actuales en el contenido del competidor
-        checkboxes = document.querySelectorAll('.competitor-checkbox');
+        checkboxes = document.querySelectorAll('.button-config');
         // obtiene los sitios guardados en la configuración
         let sites = config.sites || {};
         checkboxes.forEach(checkbox => {
-            sites[checkbox.id] = checkbox.checked;
+            sites[checkbox.id] = checkbox.classList.contains('active');
         });
-        // No olvides incluir el checkbox de 'Seleccionar Todos' si es necesario
-        const selectAllCheckbox = document.querySelector('.select-all-checkbox');
-        if (selectAllCheckbox) {
-            sites[selectAllCheckbox.id] = selectAllCheckbox.checked;
-        }
 
         config.sites = sites;
 
         chrome.storage.sync.set({ configPreferences: config })
         .then(() => {
-            messageBox.classList.add('success');
-            messageBox.textContent = 'Configuración guardada exitosamente';
-            messageBox.style.display = 'block';
-            messageBox.style.color = 'green';
-
-            // Remueve los botones para evitar comportamientos inesperados
-            backButton.remove();
-            saveButton.classList.add('hidden');
-
-            setTimeout(() => {
-                messageBox.classList.remove('success');
-                messageBox.style.display = 'none';
-                // Volver a la pantalla anterior
-                competitorContent.classList.add('hidden');
-                document.querySelector('.competitors').classList.remove('hidden');
-            }, 1000);
-            renderizarActivos(competitorsByCountry);
+            console.log({config});
         })
         .catch(() => {
             if(!messageBox.classList.contains('success') && !competitorContent.classList.contains('hidden')){
@@ -267,39 +247,51 @@ document.addEventListener('DOMContentLoaded', function () {
         competitorContent.innerHTML = competitors.map(comp => {
             if (comp.name === "ALL") {
                 return `
-                    <div class="item">
-                        <p>${comp.name}</p>
-                        <input type="checkbox" name="${comp.name}" id="${comp.id}" class="select-all-checkbox">
-                    </div>
+                    <button class="competitor-btn select-all-checkbox" id="${comp.id}">${comp.name}</button>  
                 `;
             } else {
                 return `
-                    <div class="item">
-                        <p>${comp.name}</p>
-                        <input type="checkbox" name="${comp.name}" id="${comp.id}" class="competitor-checkbox">
-                    </div>
+                    <button class="competitor-btn button-config" id="${comp.id}">${comp.name}</button>     
                 `;
+                // <div class="item">
+                //         <p class="botonCompetidor">${comp.name}</p>
+                //         <input type="checkbox" name="${comp.name}" id="${comp.id}" class="competitor-checkbox">
+                //     </div>
             }
         }).join('');
 
         // Agregar funcionalidad para manejar la selección de todos los checkboxes
         const selectAllCheckbox = document.querySelector('.select-all-checkbox');
-        const competitorCheckboxes = document.querySelectorAll('.competitor-checkbox');
+        const competitorCheckboxes = document.querySelectorAll('.button-config');
+
+        competitorCheckboxes.forEach(button => {
+            button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                    const isActive = button.classList.contains('active');
+                    if(!isActive){
+                        selectAllCheckbox.classList.toggle('active', isActive);
+                    }
+                    guardarConfiguracion();
+            });
+        });
 
         if (selectAllCheckbox) {
-            selectAllCheckbox.addEventListener('change', function () {
+            selectAllCheckbox.addEventListener('click', () => {
+                selectAllCheckbox.classList.toggle('active');
+                const isActive = selectAllCheckbox.classList.contains('active');
                 competitorCheckboxes.forEach(checkbox => {
-                    checkbox.checked = this.checked;
+                    checkbox.classList.toggle('active', isActive);
                 });
+                guardarConfiguracion();
             });
         }
 
         // Restaurar estados guardados para cada checkbox
         competitorCheckboxes.forEach(checkbox => {
-            checkbox.checked = config.sites[checkbox.id] || false;
+            checkbox.classList.toggle('active', config.sites[checkbox.id] || false);
         });
         // Ajustar el estado del checkbox 'Seleccionar Todos' basado en los estados individuales al cargar
-        selectAllCheckbox.checked = Array.from(competitorCheckboxes).every(checkbox => checkbox.checked);
+        selectAllCheckbox.classList.toggle("active", Array.from(competitorCheckboxes).every(checkbox => checkbox.classList.contains('active')));
     }
 
     

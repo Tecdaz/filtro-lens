@@ -71,14 +71,27 @@ button {
     text-align: center;
 }
 
+.active {
+    background-color: lightseagreen;
+}
+
 button:hover {
-    background-color: cornflowerblue;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+}
+
+#competitor-content{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+#competitor-content.hidden{
+    display: none;
 }
 
 .hidden {
     display: none;
 }
 
-#competitor-content {
-    width: 100%;
-}
+
