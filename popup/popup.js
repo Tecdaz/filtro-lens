@@ -16,6 +16,7 @@ const competitorsByCountry = {
         { name: 'SMA', id: 'shop.samsung.com/ar' },
         { name: 'SDA', id: 'solodeportes.com.ar' },
         { name: 'SPL', id: 'sportline.com.ar' },
+        { name: 'SCA', id: 'stockcenter.com.ar' },
         { name: 'ALL', id: 'selectAll'}
     ],
     MLB: [
