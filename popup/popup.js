@@ -20,7 +20,7 @@ const competitorsByCountry = {
     ],
     MLB: [
         { name: 'ADB', id: 'adidas.com.br' },
-        { name: 'ALB', id: 'pt.aliexpress.com' },
+        { name: 'ALB', id: 'aliexpress.com' },
         { name: 'AMB', id: 'amazon.com.br' },
         { name: 'AMR', id: 'americanas.com.br' },
         { name: 'CBH', id: 'casasbahia.com.br' },
@@ -68,6 +68,7 @@ const competitorsByCountry = {
     ],
     MLM: [
         { name: 'ALM', id: 'aliexpress.com' },
+        { name: 'ALM-ES', id: 'es.aliexpress.com' },
         { name: 'AMX', id: 'amazon.com.mx' },
         { name: 'COP', id: 'coppel.com' },
         { name: 'WAL', id: 'walmart.com.mx' },
@@ -76,6 +77,7 @@ const competitorsByCountry = {
         { name: 'SPM', id: 'shopee.com.mx' },
         { name: 'LIV', id: 'liverpool.com.mx' },
         { name: 'SHM', id: 'shein.com.mx' },
+        { name: 'TEMU', id: 'temu.com/mx'},
         { name: 'ADM', id: 'adidas.mx' },
         { name: 'SMM', id: 'samsung.com/mx' },
         { name: 'INN', id: 'innovasport.com' },

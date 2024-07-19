@@ -14,7 +14,8 @@
         "activeTab",
         "storage",
         "webRequest",
-        "declarativeNetRequest"
+        "tabs",
+        "commands"
     ],
     "host_permissions": [
         "https://lens.google.com/*"
@@ -24,12 +25,28 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://lens.google.com/*"],
-            "js": ["content.js"]
+            "matches": [
+                "https://lens.google.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
         },
         {
-            "matches": ["https://m.shein.com.mx/*"],
-            "js": ["scripts/sheinmx.js"]
+            "matches": [
+                "https://m.shein.com.mx/*"
+            ],
+            "js": [
+                "scripts/sheinmx.js"
+            ]
         }
-    ]
-  }
+    ],
+    "commands": {
+        "close-other-tabs": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y"
+            },
+            "description": "Cerrar todas las pestañas excepto la actual"
+        }
+    }
+}
