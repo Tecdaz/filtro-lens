@@ -2,20 +2,21 @@ var config = {sites: {}};
 
 const competitorsByCountry = {
     MLA: [
-        { name: 'COT', id: 'cotodigital3.com.ar' },
-        { name: 'CRA', id: 'carrefour.com.ar' },
-        { name: 'CTR', id: 'cetrogar.com.ar' },
-        { name: 'FVG', id: 'fravega.com' },
-        { name: 'JUM', id: 'jumbo.com.ar' },
-        { name: 'MUS', id: 'musimundo.com' },
-        { name: 'ESY', id: 'easy.com.ar' },
-        { name: 'DXT', id: 'dexter.com.ar' },
-        { name: 'MGT', id: 'megatone.net' },
-        { name: 'FMC', id: 'farmacity.com' },
-        { name: 'BPR', id: 'provinciacompras.com.ar' },
-        { name: 'SMA', id: 'shop.samsung.com/ar' },
-        { name: 'SDA', id: 'solodeportes.com.ar' },
-        { name: 'SPL', id: 'sportline.com.ar' },
+        {name: 'BPR', id: 'provinciacompras.com.ar/' },
+        {name: 'COT', id: 'cotodigital3.com.ar' },
+        {name: 'CRA', id: 'carrefour.com.ar' },
+        {name: 'DXT', id: 'dexter.com.ar/' },
+        {name: 'ESY', id: 'easy.com.ar/' },
+        {name: 'FMC', id: 'farmacity.com/' },
+        {name: 'FVG', id: 'fravega.com' },
+        {name: 'JUM', id: 'jumbo.com.ar/' },
+        {name: 'MGT', id: 'megatone.net/' },
+        {name: 'MUS', id: 'musimundo.com/' },
+        {name: 'SCA', id: 'stockcenter.com.ar/' },
+        {name: 'SDA', id: 'solodeportes.com.ar/' },
+        {name: 'SMA', id: 'shop.samsung.com/ar/' },
+        {name: 'SPL', id: 'sportline.com.ar/' },
+        { name: 'MLA', id: 'mercadolibre.com.ar'},
         { name: 'ALL', id: 'selectAll'}
     ],
     MLB: [
@@ -44,27 +45,21 @@ const competitorsByCountry = {
 
     ],
     MLC: [
-        { name: 'FBC', id: 'falabella.com/falabella-cl' },
-        { name: 'LIS', id: 'lider.cl/supermercado' },
-        { name: 'LNC', id: 'linio.cl' },
+        {name: 'FBC', id: 'falabella.com/falabella-cl' },
+        {name: 'PRS', id: 'paris.cl' },
+        {name: 'RIP', id: 'simple.ripley.cl' },
         { name: 'MLC', id: 'mercadolibre.cl' },
-        { name: 'PRS', id: 'paris.cl' },
-        { name: 'RIP', id: 'simple.ripley.cl' },
-        { name: 'SPC', id: 'shopee.cl' },
         { name: 'ALL', id: 'selectAll'}
 
     ],
     MCO: [
-        { name: 'ALK', id: 'alkosto.com' },
-        { name: 'EXI', id: 'exito.com' },
-        { name: 'FBO', id: 'falabella.com.co/falabella-co' },
+        {name: 'ALK', id: 'alkosto.com/' },
+        {name: 'ALO', id: 'es.aliexpress.com/' },
+        {name: 'EXI', id: 'exito.com' },
+        {name: 'FBO', id: 'falabella.com.co/falabella-co' },
+        {name: 'MER', id: 'merqueo.com/' },
         { name: 'MCO', id: 'mercadolibre.com.co' },
-        { name: 'MER', id: 'merqueo.com' },
-        { name: 'OLI', id: 'olimpica.com' },
-        { name: 'SPO', id: 'shopee.com.co' },
-        { name: 'ALO', id: 'es.aliexpress.com' },
         { name: 'ALL', id: 'selectAll'}
-
     ],
     MLM: [
         { name: 'ALM', id: 'aliexpress.com' },
@@ -83,13 +78,17 @@ const competitorsByCountry = {
         { name: 'INN', id: 'innovasport.com' },
         { name: 'HDP', id: 'homedepot.com.mx' },
         { name: 'MLM', id: 'mercadolibre.com.mx' },
-        { name: 'PDH', id: 'elpalaciodehierro.com' },
         { name: 'ALL', id: 'selectAll'}
 
     ],
     MPE: [
         { name: 'FBP', id: 'falabella.com.pe/falabella-pe' },
         { name: 'MPE', id: 'mercadolibre.com.pe' },
+        { name: 'ALL', id: 'selectAll'}
+    ],
+    MLU: [
+        {name: 'TMU', id: 'tiendamia.com/uy/' },
+        { name: 'MLU', id: 'mercadolibre.uy' },
         { name: 'ALL', id: 'selectAll'}
     ]
 };
