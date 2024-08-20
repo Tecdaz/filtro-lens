@@ -15,7 +15,8 @@
         "storage",
         "webRequest",
         "tabs",
-        "commands"
+        "commands",
+        "contextMenus"
     ],
     "host_permissions": [
         "https://lens.google.com/*"
@@ -41,6 +42,8 @@
             ]
         }
     ],
+
+
     "commands": {
         "close-other-tabs": {
             "suggested_key": {
