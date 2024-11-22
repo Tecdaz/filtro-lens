@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Filtro Google Lens",
-    "version": "1.9.0",
+    "version": "1.9.4",
     "description": "Filtrado de competidores dentro de los resultados de Google Lens",
     "icons": {
         "48": "images/icon-32.png",
@@ -11,11 +11,8 @@
         "default_popup": "popup/popup.html"
     },
     "permissions": [
-        "activeTab",
         "storage",
         "webRequest",
-        "tabs",
-        "commands",
         "contextMenus"
     ],
     "host_permissions": [
@@ -40,16 +37,27 @@
             "js": [
                 "scripts/sheinmx.js"
             ]
+        },
+        {
+            "matches": [
+                "https://*.mercadolibre.com.mx/*",
+                "https://mercadolibre.com.mx/*",
+                "https://*.mercadolibre.com.co/*",
+                "https://mercadolibre.com.co/*",
+                "https://*.mercadolibre.com.ar/*",
+                "https://mercadolibre.com.ar/*",
+                "https://*.mercadolivre.com.br/*",
+                "https://mercadolivre.com.br/*",
+                "https://*.mercadolibre.cl/*",
+                "https://mercadolibre.cl/*",
+                "https://*.mercadolibre.com.pe/*",
+                "https://mercadolibre.com.pe/*",
+                "https://*.mercadolibre.com.uy/*",
+                "https://mercadolibre.com.uy/*"
+            ],
+            "js": [
+                "scripts/catalog-item.js"
+            ]
         }
-    ],
-
-
-    "commands": {
-        "close-other-tabs": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+Y"
-            },
-            "description": "Cerrar todas las pestañas excepto la actual"
-        }
-    }
+    ]
 }

@@ -2,13 +2,14 @@ var config = {sites: {}};
 
 const competitorsByCountry = {
     MLA: [
-        {name: 'BPR', id: 'provinciacompras.com.ar/' },
+        // {name: 'BPR', id: 'provinciacompras.com.ar/' },
         {name: 'COT', id: 'cotodigital3.com.ar' },
         {name: 'CRA', id: 'carrefour.com.ar' },
         {name: 'DXT', id: 'dexter.com.ar/' },
         {name: 'ESY', id: 'easy.com.ar/' },
         {name: 'FMC', id: 'farmacity.com/' },
         {name: 'FVG', id: 'fravega.com' },
+        {name: 'JUA', id: 'juleriaque.com.ar/' },
         {name: 'JUM', id: 'jumbo.com.ar/' },
         {name: 'MGT', id: 'megatone.net/' },
         {name: 'MUS', id: 'musimundo.com/' },
@@ -17,6 +18,7 @@ const competitorsByCountry = {
         {name: 'SMA', id: 'shop.samsung.com/ar/' },
         {name: 'SPL', id: 'sportline.com.ar/' },
         { name: 'MLA', id: 'mercadolibre.com.ar'},
+        { name: 'AMA', id: 'amazon.com/'},
         { name: 'ALL', id: 'selectAll'}
     ],
     MLB: [
@@ -32,22 +34,27 @@ const competitorsByCountry = {
         { name: 'FAS', id: 'fastshop.com.br' },
         { name: 'LMN', id: 'leroymerlin.com.br' },
         { name: 'MDR', id: 'madeiramadeira.com.br' },
-        { name: 'MGL', id: 'magazineluiza.com.br' },
-        { name: 'MLB', id: 'mercadolibre.com.br' },
+        { name: 'MGL', id: 'magazineluiza.com.br' }, 
         { name: 'NET', id: 'netshoes.com.br' },
         { name: 'PAO', id: 'paodeacucar.com' },
         { name: 'RNN', id: 'lojasrenner.com.br' },
         { name: 'SHN', id: 'br.shein.com' },
         { name: 'SMB', id: 'shop.samsung.com/br' },
-        { name: 'SPE', id: 'shopee.com.br' },
         { name: 'ZAT', id: 'zattini.com.br' },
+        { name: 'BWB', id: 'belezanaweb.com.br/' },
+        { name: 'TEB', id: 'temu.com/br/' },
+        { name: 'CAB', id: 'camicado.com.br/' },
+
+        { name: 'MLB', id: 'mercadolivre.com.br' },
         { name: 'ALL', id: 'selectAll'}
 
     ],
     MLC: [
         {name: 'FBC', id: 'falabella.com/falabella-cl' },
+        {name: 'WAC', id: 'lider.cl/' },
         {name: 'PRS', id: 'paris.cl' },
         {name: 'RIP', id: 'simple.ripley.cl' },
+        {name: 'SHC', id: 'cl.shein.com/' },
         { name: 'MLC', id: 'mercadolibre.cl' },
         { name: 'ALL', id: 'selectAll'}
 
@@ -58,25 +65,28 @@ const competitorsByCountry = {
         {name: 'EXI', id: 'exito.com' },
         {name: 'FBO', id: 'falabella.com.co/falabella-co' },
         {name: 'MER', id: 'merqueo.com/' },
+        {name: 'SHO', id: 'shein.com.co/' },
+        { name: 'AMO', id: 'amazon.com/'},
         { name: 'MCO', id: 'mercadolibre.com.co' },
         { name: 'ALL', id: 'selectAll'}
     ],
     MLM: [
+        { name: 'ADM', id: 'adidas.mx' },
         { name: 'ALM', id: 'aliexpress.com' },
-        { name: 'ALM-ES', id: 'es.aliexpress.com' },
         { name: 'AMX', id: 'amazon.com.mx' },
+        { name: 'CNV', id: 'converse.com.mx' },
         { name: 'COP', id: 'coppel.com' },
+        { name: 'HDP', id: 'homedepot.com.mx' },
+        { name: 'INN', id: 'innovasport.com' },
+        { name: 'LIV', id: 'liverpool.com.mx' },
+        { name: 'PDH', id: 'elpalaciodehierro.com/' },
+        { name: 'SHM', id: 'shein.com.mx' },
+        { name: 'SMM', id: 'samsung.com/mx' },
+        { name: 'TEMU', id: 'temu.com/mx'},
         { name: 'WAL', id: 'walmart.com.mx' },
         { name: 'WAS', id: 'super.walmart.com.mx' },
-        { name: 'CNV', id: 'converse.com.mx' },
-        { name: 'SPM', id: 'shopee.com.mx' },
-        { name: 'LIV', id: 'liverpool.com.mx' },
-        { name: 'SHM', id: 'shein.com.mx' },
-        { name: 'TEMU', id: 'temu.com/mx'},
-        { name: 'ADM', id: 'adidas.mx' },
-        { name: 'SMM', id: 'samsung.com/mx' },
-        { name: 'INN', id: 'innovasport.com' },
-        { name: 'HDP', id: 'homedepot.com.mx' },
+        { name: 'EKM', id: 'elektra.mx/' },
+        { name: 'BOM', id: 'bodegaaurrera.com.mx/' },
         { name: 'MLM', id: 'mercadolibre.com.mx' },
         { name: 'ALL', id: 'selectAll'}
 
